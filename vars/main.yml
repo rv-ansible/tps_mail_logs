@@ -1,0 +1,13 @@
+---
+
+# below variable should exist on the calling of this role
+
+#pre_check_tmp: /tmp/pre-check                    # extra vars or group_vars/all
+#datestamp: "{{lookup('pipe','date +%Y%m%d')}}"   # extra vars or group_vars/all
+#send_mail: # extra vars or tower survey  
+#email_subject: # extra vars or tower survey
+#email_body:  # will come from mail.yml
+#email_group: # extra vars or tower survey
+#smtp_server: # extra vars or tower survey
+#email_to: # extra vars or tower survey
+#sa_folder: # extra vars or tower survey

@@ -1,0 +1,33 @@
+---
+
+- name: delete *.{{ext}}
+  find: paths="{{playbook_dir}}" patterns="*.{{ext}}"
+  register: x
+  
+- file: path="{{ item.path }}" state=absent
+  with_items: "{{ x.files }}"
+  
+# log_file
+- set_fact: log_file="log_{{inventory_hostname}}_{{lookup('pipe','date +%Y%m%d-%H%M')}}.txt"
+
+# path_log
+- set_fact: path_log="{{tmp_folder}}/{{log_file}}"
+
+- name: "create {{tmp_folder}}"
+  file: path={{tmp_folder}} state=directory
+  
+- file: mode=0777 path={{tmp_folder}}
+
+- name: "create {{path_log}}"
+  shell: "touch {{path_log}}"
+  
+- file: mode=0666 path={{path_log}}
+
+- name: "check size of {{path_log}}"
+  stat: path={{path_log}}  
+  register: x
+  failed_when: x.stat.size!=0
+  
+- shell: |
+         echo >> {{path_log}}  # first line
+  when: lines|default(False)==True       
