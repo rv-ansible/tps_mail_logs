@@ -1,0 +1,11 @@
+---
+
+- include_tasks: deletelogs.yml
+  when: deletelogs|default(False)==True     
+
+- include_tasks: create_log.yml
+  when: create_log|default(False)==True  
+  
+- include_tasks: mail.yml
+  when: mail|default(False)==True
+          
